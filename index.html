@@ -77,8 +77,8 @@
 <body>
 <div data-app id="main">加载中</div>
 <script type="text/javascript">
-    var G = {
-        docs_path: '{{docs_path}}',
+    var settings = {
+        url_prefix: '{{url_prefix}}',
     };
 
     function contentTree(el) {
@@ -123,18 +123,23 @@
 
         return tree;
     }
-
+    
+    var alias = {
+        '/([^/]+/)+_sidebar\\.md': '/_sidebar.md',
+        '/([^/]+/)+_navbar\\.md': '/_navbar.md',
+    };
+    
+    alias[`${settings['url_prefix']}/`] = '/';
+    alias[`${settings['url_prefix']}/(.+)`] = '/$1';
+    
     window.$docsify = {
-        loadSidebar: 'sidebar.md',
+        loadSidebar: '_sidebar.md',
         hideSidebar: false,
-        loadNavbar: 'navbar.md',
-        homepage: `${G['docs_path']}/README.md`,
+        loadNavbar: '_navbar.md',
+        homepage: `/README.md`,
         relativePath: true,
         el:'#main',
-        alias: {
-            '/(.*/)*sidebar.md': `${G['docs_path']}/_sidebar.md`,
-            '/(.*/)*navbar.md': `${G['docs_path']}/_navbar.md`,
-        },
+        alias: alias,
         // search: {
         //     placeholder: '请输入搜索关键词...',
         //     depth: 6
