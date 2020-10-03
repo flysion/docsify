@@ -60,9 +60,6 @@ def create_index_file(path = ''):
         for line in f.readlines():
             lineno += 1
 
-            if lineno == 1 and line.strip() == '[^_^]:':
-                return index_file, index_url
-
             if line.strip() == '----':
                 custom = True
 
