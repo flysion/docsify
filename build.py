@@ -41,9 +41,6 @@ def create_index_file(path = ''):
 
             if file in ['README.md', '.gitignore']:
                 continue
-            
-            if file[0] == '.':
-                continue
 
             if os.path.isdir(fullpath):
                 # 目录
@@ -64,7 +61,7 @@ def create_index_file(path = ''):
                 custom = True
 
             if custom:
-                lines.append(line.strip())
+                lines.append(line.rstrip('\r\n'))
 
         f.seek(0)
         f.truncate()
@@ -85,9 +82,6 @@ def build_dir(sidebar, path='', segment=[], depth=0):
             continue
 
         if file in ['README.md', '.gitignore']:
-            continue
-            
-        if file[0] == '.':
             continue
 
         child = {'is_file': True}
